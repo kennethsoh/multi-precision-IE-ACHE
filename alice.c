@@ -132,7 +132,7 @@ int main()
     fclose(cloud_key);
 
     // export the 64 ciphertexts to a file (for the cloud)
-    FILE* cloud_data = fopen("cloud.data","wb");
+    FILE* cloud_data = fopen("cloud.data","ab");
     for (int i=0; i<32; i++) // negative
         export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
     for (int i = 0; i<32; i++) // bit
@@ -238,7 +238,7 @@ int main()
     fclose(cloud_key);
 
     // export the 64 ciphertexts to a file (for the cloud)
-    FILE* cloud_data = fopen("cloud.data","wb");
+    FILE* cloud_data = fopen("cloud.data","ab");
     for (int i=0; i<32; i++)
         export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
     for (int i = 0; i<32; i++)
@@ -318,7 +318,7 @@ int main()
     fclose(cloud_key);
 
     // export the 64 ciphertexts to a file (for the cloud)
-    FILE* cloud_data = fopen("cloud.data","wb");
+    FILE* cloud_data = fopen("cloud.data","ab");
     for (int i=0; i<32; i++)
         export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
     //for (int i = 0; i<32; i++)
