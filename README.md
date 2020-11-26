@@ -43,4 +43,4 @@ $ g++ process.c -o process -ltfhe-spqlios-fma
 $ g++ verif.c -o verif -ltfhe-spqlios-fma
 ```
 
-4. Execute the compiled C files, starting with process, then alice, cloud, and verif.
+4. Execute the compiled C files, starting with process, then alice twice, cloud, and verif.
