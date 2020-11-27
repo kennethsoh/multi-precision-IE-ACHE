@@ -1278,7 +1278,12 @@ def compute():
 
     # Print size of answer.data
     answer_data = 'answer.data'
-    print("File size of computed answer file: ", os.path.getsize(answer_data))
+    ans_size = os.path.getsize(answer_data)
+    print("File size of computed answer file: ", ans_size)
+
+    if ans_size <= 162304:
+        answer()
+        sys.exit()
 
 
 def compute_final():
@@ -1301,7 +1306,9 @@ def compute_final():
 def answer():
 
     answer_data = "answer.data"
+    ans_size = os.path.getsize(answer_data)
     print("This file ", answer_data, "is our computed answer\n")
+
 
     # Open the file and read its content
     # f = open('answer.data', 'rb')

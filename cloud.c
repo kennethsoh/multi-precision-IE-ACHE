@@ -766,7 +766,6 @@ int main() {
    	read.open("operator.txt");
 	read >> int_op;
 	
-
 	// Homomorphic encryption to add negative1 and negative2 ciphertexts
 	LweSample* ciphertextnegative = new_gate_bootstrapping_ciphertext_array(32, params);
 	LweSample* carry1 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -777,7 +776,7 @@ int main() {
     	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextnegative1[i],key)>0;
        	int_negative1 |= (ai<<i); }
-    	std::cout << int_negative1 << " => negative1" << "\n";
+    	// std::cout << int_negative1 << " => negative1" << "\n";
 	
 	// convert first value negativity code from 2 to 1
 	if (int_negative1 == 2){
@@ -788,7 +787,7 @@ int main() {
     	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextnegative2[i],key)>0;
        	int_negative2 |= (ai<<i); }
-    	std::cout << int_negative2 << " => negative2" << "\n";
+    	// std::cout << int_negative2 << " => negative2" << "\n";
 
 	// Add Negatives. 
 	// If both v1 & v2 are positive, int_negative = 0
@@ -804,7 +803,6 @@ int main() {
 	// Write negative to  answer.data
 	for (int i = 0; i<32; i++)
 		export_gate_bootstrapping_ciphertext_toFile(answer_data, &ciphertextnegative[i], params);
-    	std::cout << " negatives written" << "\n";
 	
 	// Compare bit sizes
 	int32_t int_bit = 0;
@@ -826,6 +824,9 @@ int main() {
 	
 	// If trying to multiply a 128 bit number
 	if ((int_op == 4) && (int_bit >= 128)){
+    		std::cout << "Cannot multiply 128 bit number!" << "\n";
+		fclose(answer_data);
+		return 126;
 	}
 
 
@@ -936,7 +937,6 @@ int main() {
 			//128 Bit Addition
 			if (int_bit == 128) 
 			{
-
 				//Ciphertext to hold the result and carry
 				LweSample* result = new_gate_bootstrapping_ciphertext_array(32, params);
 				LweSample* result2 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -948,11 +948,8 @@ int main() {
 				LweSample* carry3 = new_gate_bootstrapping_ciphertext_array(32, params);
 				LweSample* carry4 = new_gate_bootstrapping_ciphertext_array(32, params);
 				
-				
 				struct timeval start, end;
-
 				double get_time;
-
 				gettimeofday(&start, NULL);
 				printf("Doing the homomorphic computation...\n");
 				//Adding component
