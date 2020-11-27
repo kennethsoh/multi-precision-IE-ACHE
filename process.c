@@ -66,15 +66,10 @@ int main(){
    double get_time;
    string x; 
 
-   
-   
-   
-  
    //used for input sanitisation
    while (1){
    	cout << "Enter the number of bits for calculation (32/64/128/256 bits) : "; // Type a number and press enter
    	
-	
         cin >> input1; // Get user input from the keyboard
         if (input1 == "32" ){
         	cout << "32 bit calculation" << "\n";
@@ -92,12 +87,9 @@ int main(){
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -2147483647 to values.txt" << "\n";
         			break;
-        		
         		}else{
         			cout << "Invalid input, please try again" << "\n";
-        		
         		}
-        	
         	}
 		fprintf(pFile, "00000000000000000000000000100000");
 		fprintf(pFile, "\n");
@@ -123,12 +115,9 @@ int main(){
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -9223372036854775807 to values.txt" << "\n";
         			break;
-        		
         		}else{
         			cout << "Invalid input, please try again" << "\n";
-        		
         		}
-        	
         	}
 		fprintf(pFile, "00000000000000000000000001000000");
 		fprintf(pFile, "\n");
@@ -156,12 +145,9 @@ int main(){
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -170141183460469231731687303715884105727 to values.txt" << "\n";
         			break;
-        		
         		}else{
         			cout << "Invalid input, please try again" << "\n";
-        		
         		}
-        	
         	}
         	fprintf(pFile, "00000000000000000000000010000000");
 		fprintf(pFile, "\n");
@@ -192,12 +178,9 @@ int main(){
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -57896044618658097711785492504343953926634992332820282019728792003956564819967 to values.txt" << "\n";
         			break;
-        		
         		}else{
         			cout << "Invalid input, please try again" << "\n";
-        		
         		}
-        	
         	}
 		fprintf(pFile, "00000000000000000000000100000000");
 		fprintf(pFile, "\n");

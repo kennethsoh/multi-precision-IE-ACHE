@@ -202,6 +202,10 @@ int main()
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext4 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext5 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext6 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext7 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext8 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext9 = new_gate_bootstrapping_ciphertext_array(32, params);
     
    int32_t plaintext3 = 0;
    
@@ -225,6 +229,18 @@ int main()
     }
     for (int i=0; i<32; i++) {
 	bootsSymEncrypt(&ciphertext5[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext6[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext7[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext8[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext9[i], (plaintext3>>i)&1, key);
     }
    
     // export the secret key to file for later use
@@ -253,6 +269,14 @@ int main()
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext4[i], params);
     for (int i = 0; i<32; i++)
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext5[i], params);
+    for (int i = 0; i<32; i++) // 6
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext6[i], params);
+    for (int i = 0; i<32; i++) // 7
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext7[i], params);
+    for (int i = 0; i<32; i++) // 8
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext8[i], params);
+    for (int i = 0; i<32; i++) // 9
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext9[i], params);
     fclose(cloud_data);
 
     // clean up all pointers
@@ -263,6 +287,10 @@ int main()
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext3);
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext4);
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext5);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext6);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext7);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext8);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext9);
     
     delete_gate_bootstrapping_secret_keyset(key);
     delete_gate_bootstrapping_parameters(params);
@@ -288,6 +316,12 @@ int main()
     LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext4 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext5 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext6 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext7 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext8 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext9 = new_gate_bootstrapping_ciphertext_array(32, params);
     
    int32_t plaintext3 = 0;
    for (int i=0; i<32; i++) {
@@ -305,6 +339,24 @@ int main()
     for (int i=0; i<32; i++) {
 	bootsSymEncrypt(&ciphertext3[i], (plaintext3>>i)&1, key);
     }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext4[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext5[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext6[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext7[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext8[i], (plaintext3>>i)&1, key);
+    }
+    for (int i=0; i<32; i++) {
+	bootsSymEncrypt(&ciphertext9[i], (plaintext3>>i)&1, key);
+    }
     
    
     // export the secret key to file for later use
@@ -321,16 +373,26 @@ int main()
     FILE* cloud_data = fopen("cloud.data","ab");
     for (int i=0; i<32; i++)
         export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
-    //for (int i = 0; i<32; i++)
-        //export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextop[i], params);
     for (int i = 0; i<32; i++)
         export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
-    for (int i=0; i<32; i++)
+    for (int i=0; i<32; i++)  // 1
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
-    for (int i=0; i<32; i++)
+    for (int i=0; i<32; i++)  // 2
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext2[i], params);
-    for (int i = 0; i<32; i++)
+    for (int i = 0; i<32; i++) // 3
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext3[i], params);
+    for (int i = 0; i<32; i++) // 4
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext4[i], params);
+    for (int i = 0; i<32; i++) // 5
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext5[i], params);
+    for (int i = 0; i<32; i++) // 6
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext6[i], params);
+    for (int i = 0; i<32; i++) // 7
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext7[i], params);
+    for (int i = 0; i<32; i++) // 8
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext8[i], params);
+    for (int i = 0; i<32; i++) // 9
+	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext9[i], params);
     
     fclose(cloud_data);
 
@@ -340,6 +402,12 @@ int main()
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext1);
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext2);
     delete_gate_bootstrapping_ciphertext_array(32, ciphertext3);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext4);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext5);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext6);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext7);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext8);
+    delete_gate_bootstrapping_ciphertext_array(32, ciphertext9);
     
     delete_gate_bootstrapping_secret_keyset(key);
     delete_gate_bootstrapping_parameters(params);
@@ -358,9 +426,16 @@ int main()
 	    
 	read.close();
 	 
-	LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);   
-	LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
-	LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext4 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext5 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext6 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext7 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext8 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext9 = new_gate_bootstrapping_ciphertext_array(32, params);
 	 
 	int32_t plaintext3 = 0;
 	
@@ -373,10 +448,29 @@ int main()
 	for (int i=0; i<32; i++) {
 		bootsSymEncrypt(&ciphertext1[i], (chunk1>>i)&1, key);
 	}
-	std::cout << chunk1 << " => chunk1" << "\n";
-
 	for (int i=0; i<32; i++) {
 		bootsSymEncrypt(&ciphertext2[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext3[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext4[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext5[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext6[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext7[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext8[i], (plaintext3>>i)&1, key);
+	}
+	for (int i=0; i<32; i++) {
+		bootsSymEncrypt(&ciphertext9[i], (plaintext3>>i)&1, key);
 	}
 		
 	    // export the secret key to file for later use
@@ -395,10 +489,24 @@ int main()
             	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
 	   for (int i=0; i<32; i++)
 		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
-	   for (int i = 0; i<32; i++)
+	   for (int i = 0; i<32; i++) // 1
 		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
-	   for (int i = 0; i<32; i++)
+	   for (int i = 0; i<32; i++) // 2
 		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext2[i], params);
+	   for (int i = 0; i<32; i++) // 3
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext3[i], params);
+	   for (int i = 0; i<32; i++) // 4
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext4[i], params);
+	   for (int i = 0; i<32; i++) // 5
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext5[i], params);
+	   for (int i = 0; i<32; i++) // 6
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext6[i], params);
+	   for (int i = 0; i<32; i++) // 7
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext7[i], params);
+	   for (int i = 0; i<32; i++) // 8
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext8[i], params);
+	   for (int i = 0; i<32; i++) // 9
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext9[i], params);
 	   fclose(cloud_data);
 
 	   // clean up all pointers
@@ -407,11 +515,17 @@ int main()
 
 	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext1);
 	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext2);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext3);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext4);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext5);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext6);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext7);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext8);
+	   delete_gate_bootstrapping_ciphertext_array(32, ciphertext9);
 
 	   delete_gate_bootstrapping_secret_keyset(key);
 	   delete_gate_bootstrapping_parameters(params);
     }
-    
     // Timings
     gettimeofday(&end, NULL);
     get_time = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) * 1.0E-6;

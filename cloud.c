@@ -51,9 +51,6 @@ void add(LweSample *sum, LweSample *carryover, const LweSample *x, const LweSamp
         delete_LweSample_array(1, carry);
         delete_LweSample_array(1, axc);
         delete_LweSample_array(1, bxc);
-
-	// TODO REMOVE
-    	std::cout << "Addition successful" << "\n";
 }
 
 void zero(LweSample* result, const TFheGateBootstrappingCloudKeySet* keyset, const size_t size)
@@ -707,97 +704,62 @@ int main() {
 		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextbit1[i], params);
 	
 
-	// Decrypts bit size1 and determines number of 32bit ciphers for value 1
+	// Decrypts bit size1 
 	int32_t int_bit1 = 0;
     	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextbit1[i],key)>0;
        	int_bit1 |= (ai<<i); }
-	if (int_bit1 == 32){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext1[i], params);
-	} else if (int_bit1 == 64){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext1[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext2[i], params);
-	} else if (int_bit1 == 128){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext1[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext2[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext3[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext4[i], params);
-	} else if (int_bit1 == 256){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext1[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext2[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext3[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext4[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext5[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext6[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext7[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext8[i], params);
-	}
+
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext1[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext2[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext3[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext4[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext5[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext6[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext7[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext8[i], params);
 
 	for (int i = 0; i<32; i++) // line10
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextcarry1[i], params);
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextcarry1[i], params);
 
 	for (int i = 0; i<32; i++) // line11
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextnegative2[i], params);
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextnegative2[i], params);
 	for (int i = 0; i<32; i++) // line12
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextbit2[i], params);
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextbit2[i], params);
 
-	// Decrypts bit size2 and determines number of 32bit ciphers for value2
+	// Decrypts bit size2
 	int32_t int_bit2 = 0;
     	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextbit2[i],key)>0;
        	int_bit2 |= (ai<<i); }
-	if (int_bit2 == 32){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext9[i], params);
-	} else if (int_bit2 == 64){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext9[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext10[i], params);
-	} else if (int_bit2 == 128){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext9[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext10[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext11[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext12[i], params);
-	} else if (int_bit2 == 256){
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext9[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext10[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext11[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext12[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext13[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext14[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext15[i], params);
-		for (int i=0; i<32; i++)
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext16[i], params);
-	}
+
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext9[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext10[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext11[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext12[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext13[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext14[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext15[i], params);
+	for (int i=0; i<32; i++)
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertext16[i], params);
+
 	for (int i = 0; i<32; i++) // line21
-		import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextcarry2[i], params);
+	import_gate_bootstrapping_ciphertext_fromFile(cloud_data, &ciphertextcarry2[i], params);
 	
 	// Get Operation Code from File
 	int32_t int_op;
