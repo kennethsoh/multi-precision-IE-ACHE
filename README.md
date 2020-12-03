@@ -44,20 +44,22 @@ $ git clone https://github.com/kennethsoh/multi-precision-IE-ACHE.git
 
 3. Compile the c programs 
 ```bash
-$ g++ alice.c -o alice -ltfhe-spqlios-fma
-$ g++ cloud.c -o cloud -ltfhe-spqlios-fma
-$ g++ process.c -o process -ltfhe-spqlios-fma
-$ g++ verif.c -o verif -ltfhe-spqlios-fma
+$ python3 compile.py
 ```
 
 4. Execute the compiled C files, starting with process, then alice, cloud, and verif.
 ```bash
+# Value 1
 $ ./process
 $ ./alice
-$
+
+# Value 2
 $ ./process
 $ ./alice
-$
+
+# Compute
 $ ./cloud
+
+# Verify
 $ ./verif
 ```
