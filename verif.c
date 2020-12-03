@@ -1,6 +1,7 @@
 #include <tfhe/tfhe.h>
 #include <tfhe/tfhe_io.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <bitset>
 #include <iostream>
 #include <iomanip>
@@ -59,10 +60,14 @@ int main() {
         int ai = bootsSymDecrypt(&negative[i], nbitkey)>0;
         int_negative |= (ai<<i);
     }
-	std::cout << "Negative: " << int_negative << "\n" << "\n";
+	std::cout << "Negative: " << int_negative << "\n";
     
     // TODO: Obtain opcode from file
-    int32_t int_op = 1;
+	int32_t int_op;
+    FILE* fptr;
+	fptr = fopen("operator.txt","r");
+	fscanf(fptr,"%d", &int_op);
+	std::cout << "Opcode: " << int_op << "\n" << "\n";
     
     int32_t int_bit = 0;
     for (int i=0; i<32; i++) {
