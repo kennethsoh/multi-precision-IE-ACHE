@@ -7,7 +7,7 @@ This project will be integrated to the <a href="https://github.com/kennethsoh/IE
 No licence has been added to this work.
 
 Copyright © 2019-2020 <br>
-All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law. For permission requests, write to the publisher, addressed “Attention: Permissions Coordinator,” at the addresses below:
+All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law. For permission requests, write to the publisher, addressed “Attention: Permissions Coordinator,” at the addresses below:<br>
 kennethsoh@yahoo.com.sg; tewzhenghong@outlook.com; dominic1js@gmail.com; chengjing32@yahoo.com
 
 #### Dependencies
