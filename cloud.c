@@ -844,9 +844,9 @@ int main() {
 	
 	fclose(cloud_data);
 	
-	// If trying to multiply a 128 bit number
-	if ((int_op == 4) && (int_bit >= 128)){
-    		std::cout << "Cannot multiply 128 bit number!" << "\n";
+	// If trying to multiply a 256 bit number
+	if ((int_op == 4) && (int_bit >= 256)){
+    		std::cout << "Cannot multiply 256 bit number!" << "\n";
 		fclose(answer_data);
 		return 126;
 	}
