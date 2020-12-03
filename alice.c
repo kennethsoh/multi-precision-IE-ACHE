@@ -18,10 +18,21 @@ int main()
    const int minimum_lambda = 110;
    TFheGateBootstrappingParameterSet* params = new_default_gate_bootstrapping_parameters(minimum_lambda);
 
+   // generate a keyset
+   const int minimum_lambda2 = 110;
+   TFheGateBootstrappingParameterSet* nbitparams = new_default_gate_bootstrapping_parameters(minimum_lambda2);
+
    // generate a random key
    uint32_t seed[] = { 314, 1592, 657 };
    tfhe_random_generator_setSeed(seed,3);
    TFheGateBootstrappingSecretKeySet* key = new_random_gate_bootstrapping_secret_keyset(params);
+
+   uint32_t bitseed[] = { 314, 1592, 888 };
+   tfhe_random_generator_setSeed(bitseed,3);
+   TFheGateBootstrappingSecretKeySet* nbitkey = new_random_gate_bootstrapping_secret_keyset(nbitparams);
+
+   
+
    struct timeval start, end;
    double get_time;
    gettimeofday(&start, NULL);
@@ -39,7 +50,7 @@ int main()
    getline(read, sLine); 
    unsigned long long bitcount = std::bitset<32>(sLine).to_ullong(); // Convert 32 bits to integer (Bit Count)
 
-   LweSample* ciphertextnegative = new_gate_bootstrapping_ciphertext_array(32, params);
+   LweSample* ciphertextnegative = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
    
    std::cout << "Number of bits for calculation: " << bitcount << "\n"; // Print bit count (converted from binary to integer)
 
@@ -74,7 +85,7 @@ int main()
     read.close();
 
     // Create 10 ciphertext blocks of 32 bits each
-    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
     LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -88,10 +99,10 @@ int main()
    int32_t plaintext3 = 0;
    
     for (int i=0; i<32; i++) { // line 0 negtivity
-	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, key);
+	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) { // line 1 bit size
-	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, key);
+	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) { // line 2 value1
 	bootsSymEncrypt(&ciphertext1[i], (chunk1>>i)&1, key);
@@ -131,12 +142,17 @@ int main()
     export_tfheGateBootstrappingCloudKeySet_toFile(cloud_key, &key->cloud);
     fclose(cloud_key);
 
+    // export the bit key to file for later use
+    FILE* nbit_key = fopen("nbit.key","wb");
+    export_tfheGateBootstrappingSecretKeySet_toFile(nbit_key, nbitkey);
+    fclose(nbit_key);
+
     // export the 64 ciphertexts to a file (for the cloud)
     FILE* cloud_data = fopen("cloud.data","wb");
     for (int i=0; i<32; i++) // negative
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], nbitparams);
     for (int i = 0; i<32; i++) // bit
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], nbitparams);
     for (int i=0; i<32; i++) // 1
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
     for (int i=0; i<32; i++) // 2
@@ -196,7 +212,7 @@ int main()
 
     read.close();
     
-    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
     LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -210,10 +226,10 @@ int main()
    int32_t plaintext3 = 0;
    
    for (int i=0; i<32; i++) {
-	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, key);
+	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) {
-	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, key);
+	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) {
 	bootsSymEncrypt(&ciphertext1[i], (chunk1>>i)&1, key);
@@ -253,12 +269,17 @@ int main()
     export_tfheGateBootstrappingCloudKeySet_toFile(cloud_key, &key->cloud);
     fclose(cloud_key);
 
+    // export the bit key to file for later use
+    FILE* nbit_key = fopen("nbit.key","wb");
+    export_tfheGateBootstrappingSecretKeySet_toFile(nbit_key, nbitkey);
+    fclose(nbit_key);
+
     // export the 64 ciphertexts to a file (for the cloud)
     FILE* cloud_data = fopen("cloud.data","wb");
     for (int i=0; i<32; i++)
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], nbitparams);
     for (int i = 0; i<32; i++)
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], nbitparams);
     for (int i=0; i<32; i++)
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
     for (int i=0; i<32; i++)
@@ -312,7 +333,7 @@ int main()
     
     read.close();
    
-    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
     LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -325,10 +346,10 @@ int main()
     
    int32_t plaintext3 = 0;
    for (int i=0; i<32; i++) {
-	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, key);
+	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) {
-	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, key);
+	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, nbitkey);
     }
     for (int i=0; i<32; i++) {
 	bootsSymEncrypt(&ciphertext1[i], (chunk1>>i)&1, key);
@@ -369,12 +390,17 @@ int main()
     export_tfheGateBootstrappingCloudKeySet_toFile(cloud_key, &key->cloud);
     fclose(cloud_key);
 
+    // export the bit key to file for later use
+    FILE* nbit_key = fopen("nbit.key","wb");
+    export_tfheGateBootstrappingSecretKeySet_toFile(nbit_key, nbitkey);
+    fclose(nbit_key);
+
     // export the 64 ciphertexts to a file (for the cloud)
     FILE* cloud_data = fopen("cloud.data","wb");
     for (int i=0; i<32; i++)
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], nbitparams);
     for (int i = 0; i<32; i++)
-        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
+    export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], nbitparams);
     for (int i=0; i<32; i++)  // 1
 	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
     for (int i=0; i<32; i++)  // 2
@@ -426,7 +452,7 @@ int main()
 	    
 	read.close();
 	 
-    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertextbit = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
     LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
     LweSample* ciphertext3 = new_gate_bootstrapping_ciphertext_array(32, params);
@@ -440,10 +466,10 @@ int main()
 	int32_t plaintext3 = 0;
 	
 	for (int i=0; i<32; i++) {
-		bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, key);
+		bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, nbitkey);
 	}
 	for (int i=0; i<32; i++) {
-		bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, key);
+		bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, nbitkey);
 	}
 	for (int i=0; i<32; i++) {
 		bootsSymEncrypt(&ciphertext1[i], (chunk1>>i)&1, key);
@@ -483,12 +509,17 @@ int main()
 	   export_tfheGateBootstrappingCloudKeySet_toFile(cloud_key, &key->cloud);
 	   fclose(cloud_key);
 
+       // export the bit key to file for later use
+       FILE* nbit_key = fopen("nbit.key","wb");
+       export_tfheGateBootstrappingSecretKeySet_toFile(nbit_key, nbitkey);
+       fclose(nbit_key);
+
 	   // export the 64 ciphertexts to a file (for the cloud)
-	   FILE* cloud_data = fopen("cloud.data","wb"); // TODO change to wb
+	   FILE* cloud_data = fopen("cloud.data","ab"); // TODO change to wb
 	   for (int i=0; i<32; i++)
-            	export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], params);
+        export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextnegative[i], nbitparams);
 	   for (int i=0; i<32; i++)
-		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], params);
+		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertextbit[i], nbitparams);
 	   for (int i = 0; i<32; i++) // 1
 		export_gate_bootstrapping_ciphertext_toFile(cloud_data, &ciphertext1[i], params);
 	   for (int i = 0; i<32; i++) // 2

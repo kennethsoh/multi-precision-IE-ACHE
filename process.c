@@ -83,7 +83,7 @@ int main(){
         			break;
         		
         		}else if (input2 == "no"){
-        			fprintf(pFile, "00000000000000000000000000000001");
+        			fprintf(pFile, "00000000000000000000000000000010");
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -2147483647 to values.txt" << "\n";
         			break;
@@ -111,7 +111,7 @@ int main(){
         			break;
         		
         		}else if (input2 == "no"){
-        			fprintf(pFile, "00000000000000000000000000000001");
+        			fprintf(pFile, "00000000000000000000000000000010");
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -9223372036854775807 to values.txt" << "\n";
         			break;
@@ -141,7 +141,7 @@ int main(){
         			break;
         		
         		}else if (input2 == "no"){
-        			fprintf(pFile, "00000000000000000000000000000001");
+        			fprintf(pFile, "00000000000000000000000000000010");
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -170141183460469231731687303715884105727 to values.txt" << "\n";
         			break;
@@ -174,7 +174,7 @@ int main(){
         			cout << "Wrote a binary value of 57896044618658097711785492504343953926634992332820282019728792003956564819967 to values.txt" << "\n";
         			break;
         		}else if (input2 == "no"){
-        			fprintf(pFile, "00000000000000000000000000000001");
+        			fprintf(pFile, "00000000000000000000000000000010");
         			fprintf(pFile, "\n");
         			cout << "Wrote a binary value of -57896044618658097711785492504343953926634992332820282019728792003956564819967 to values.txt" << "\n";
         			break;

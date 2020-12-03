@@ -23,40 +23,50 @@ int main() {
     TFheGateBootstrappingSecretKeySet* key = new_tfheGateBootstrappingSecretKeySet_fromFile(secret_key);
     fclose(secret_key);
 
+	FILE* nbit_key = fopen("nbit.key","rb");
+    TFheGateBootstrappingSecretKeySet* nbitkey = new_tfheGateBootstrappingSecretKeySet_fromFile(nbit_key);
+    fclose(nbit_key);
+
     //if necessary, the params are inside the key
     const TFheGateBootstrappingParameterSet* params = key->params;
+
+	// if necessary, the params are inside the key
+	const TFheGateBootstrappingParameterSet* nbitparams = nbitkey->params;
     
+
+
     struct timeval start, end;
     double get_time;
     gettimeofday(&start, NULL);
 
     //read the 16 ciphertexts of the result
-    LweSample* negative = new_gate_bootstrapping_ciphertext_array(32, params);
-    LweSample* bit = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* negative = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
+    LweSample* bit = new_gate_bootstrapping_ciphertext_array(32, nbitparams);
     
     FILE* answer_data = fopen("answer.data","rb");
     for (int i=0; i<32; i++) 
-        import_gate_bootstrapping_ciphertext_fromFile(answer_data, &negative[i], params);
+        import_gate_bootstrapping_ciphertext_fromFile(answer_data, &negative[i], nbitparams);
     
 
     for (int i=0; i<32; i++) 
-        import_gate_bootstrapping_ciphertext_fromFile(answer_data, &bit[i], params);
+        import_gate_bootstrapping_ciphertext_fromFile(answer_data, &bit[i], nbitparams);
 
     
     //decrypt and rebuild the answer
     
     int32_t int_negative = 0;
     for (int i=0; i<32; i++) {
-        int ai = bootsSymDecrypt(&negative[i], key)>0;
+        int ai = bootsSymDecrypt(&negative[i], nbitkey)>0;
         int_negative |= (ai<<i);
     }
+	std::cout << "Negative: " << int_negative << "\n" << "\n";
     
     // TODO: Obtain opcode from file
     int32_t int_op = 1;
     
     int32_t int_bit = 0;
     for (int i=0; i<32; i++) {
-        int ai = bootsSymDecrypt(&bit[i], key)>0;
+        int ai = bootsSymDecrypt(&bit[i], nbitkey)>0;
         int_bit |= (ai<<i);
     }
     
@@ -71,7 +81,6 @@ int main() {
 	    
 	    fclose(answer_data);
 	  
-	    
 	    // decrypt and rebuild the answer
 	    int32_t int_answer1 = 0;
 	    for (int i=0; i<32; i++) {
