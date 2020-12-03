@@ -777,7 +777,7 @@ int main() {
 	// add(ciphertextnegative, carry1, ciphertextnegative1, ciphertextnegative2, ciphertextcarry1, 32, nbitcloudkey); // NOTE
 
 	// Decrypts Negative1
-	int32_t int_negative1;
+	int32_t int_negative1 = 0;
     	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextnegative1[i],nbitkey)>0;
        	int_negative1 |= (ai<<i); }
@@ -788,8 +788,8 @@ int main() {
 		int_negative1 = 1;}
     	
 	// Decrypts Negative2
-	int32_t int_negative2;
-    	for (int i=0; i<32; i++) {
+	int32_t int_negative2 = 0;
+	for (int i=0; i<32; i++) {
        	int ai = bootsSymDecrypt(&ciphertextnegative2[i],nbitkey)>0;
        	int_negative2 |= (ai<<i); }
     	std::cout << int_negative2 << " => negative2" << "\n";

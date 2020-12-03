@@ -45,6 +45,7 @@ int main()
    
    getline(read, sLine);
    unsigned long long negative = std::bitset<32>(sLine).to_ullong(); // Convert 32 bits to integer (Negativity code)
+   std::cout << "Negativity: " << negative << "\n";
    
    ++line_no;
    getline(read, sLine); 
@@ -101,6 +102,7 @@ int main()
     for (int i=0; i<32; i++) { // line 0 negtivity
 	bootsSymEncrypt(&ciphertextnegative[i], (negative>>i)&1, nbitkey);
     }
+   	std::cout << "Negativity: " << negative << "\n";
     for (int i=0; i<32; i++) { // line 1 bit size
 	bootsSymEncrypt(&ciphertextbit[i], (bitcount>>i)&1, nbitkey);
     }
