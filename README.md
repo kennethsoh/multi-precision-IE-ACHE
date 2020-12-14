@@ -63,3 +63,37 @@ $ ./cloud
 # Verify
 $ ./verif
 ```
+
+For >2 client setup:
+```bash
+# Value 1
+$ ./process
+$ ./alice
+
+# Value 2
+$ ./process
+$ ./alice
+
+# Compute
+$ ./cloud
+
+# Delete cloud.data
+$ rm cloud.data
+
+# Value 3
+$ ./process
+$ ./alice
+
+# Add answer from first compute to cloud.data
+$ cat answer.data >> cloud.data
+
+# Compute again
+$ ./cloud
+
+# Verify
+$ ./verif
+```
+
+
+
+
